@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flex_item_ll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/standardSizePadddingTop"
+    android:layout_marginLeft="@dimen/standardListPaddding"
+    android:layout_marginRight="@dimen/standardListPaddding"
+    android:layout_marginTop="@dimen/standardSizePadddingTop"
+    android:background="@drawable/flexlayout_item_bg"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="6dp">
+
+    <TextView
+        android:id="@+id/flex_item_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:text="姓名"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/bodySize" />
+
+    <ImageView
+        android:id="@+id/flex_item_delete_img"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/delete_red" />
+</LinearLayout>
