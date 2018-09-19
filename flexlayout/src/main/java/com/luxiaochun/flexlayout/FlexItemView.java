@@ -29,8 +29,6 @@ public class FlexItemView<T> extends LinearLayout {
         initView(context);
     }
 
-
-
     private void initView(Context context) {
         LayoutInflater.from(context).inflate(R.layout.flexlayout_item, this, true);
         llItem = findViewById(R.id.flex_item_ll);
@@ -53,10 +51,10 @@ public class FlexItemView<T> extends LinearLayout {
     public void setEditable(boolean editable) {
         this.editable = editable;
         if (editable) {
-            imgDelete.setVisibility(View.INVISIBLE);
+            imgDelete.setVisibility(View.VISIBLE);
             imgDelete.setEnabled(false);
         } else {
-            imgDelete.setVisibility(View.VISIBLE);
+            imgDelete.setVisibility(View.GONE);
             imgDelete.setEnabled(true);
         }
     }

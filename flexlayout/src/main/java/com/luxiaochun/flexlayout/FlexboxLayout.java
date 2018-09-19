@@ -7,11 +7,6 @@ package com.luxiaochun.flexlayout;
  * Date: 2018-09-13 15:32
  * Copyright: (C)HESC Co.,Ltd. 2016. All rights reserved.
  */
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -22,13 +17,13 @@ import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.luxiaochun.flexlayout.R.styleable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import com.luxiaochun.flexlayout.R.styleable;
 
 public class FlexboxLayout extends ViewGroup {
     private int[] mReorderedIndices;
@@ -214,7 +209,7 @@ public class FlexboxLayout extends ViewGroup {
                 this.checkSizeConstraints(child);
                 childState = ViewCompat.combineMeasuredStates(childState, ViewCompat.getMeasuredState(child));
                 largestHeightInRow = Math.max(largestHeightInRow, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
-                if (limitedLine <= 0 || mFlexLines.size() < getLimitedLine()) {
+                if (limitedLine <= 0 || mFlexLines.size() < getLimitedLine() ) {
                     if (this.isWrapRequired(widthMode, widthSize, flexLine.mainSize, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin)) {
                         this.mFlexLines.add(flexLine);
                         flexLine = new FlexboxLayout.FlexLine();

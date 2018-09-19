@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class FlexLayout<T> extends LinearLayout {
     public static final int FLEX_MODE_NORMAL = 0;//默认
     public static final int FLEX_MODE_REVERSE = 1; //反向
     private int flexMode = 0;
+    private boolean editable = false;
     private FlexboxLayout flexbox_layout;
     private List<T> dataList = new ArrayList<>();
     private List<String> nameList = new ArrayList<>();
@@ -83,21 +83,22 @@ public class FlexLayout<T> extends LinearLayout {
     }
 
     /**
-     * 获取全部数据
+     * 一次性装弹
      *
-     * @return
+     * @param nameList
      */
-    public List<T> getDataList() {
-        for (int i = 0; i < flexbox_layout.getChildCount(); i++) {
-            if (flexbox_layout.getChildAt(i) instanceof FlexItemView) {
-                dataList.add((T) ((FlexItemView) flexbox_layout.getChildAt(i)).getBean());
+    public void loadBullets(List<String> nameList) {
+        if (flexMode == 2) {
+            flexbox_layout.removeAllViews();
+            for (int i = 0; i < nameList.size(); i++) {
+                flexbox_layout.addView(createNewFlexItem(nameList.get(i)));
+            }
+        } else {
+            for (int i = 0; i < nameList.size(); i++) {
+                flexbox_layout.addView(createNewFlexItem(nameList.get(i)));
             }
         }
-        return dataList;
-    }
-
-    public void setMaxLimited(int maxLimited) {
-        this.maxLimited = maxLimited;
+        this.nameList.addAll(nameList);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -125,25 +126,46 @@ public class FlexLayout<T> extends LinearLayout {
                 flexbox_layout.removeView(itemView);
             }
         });
+        itemView.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                for (int i = 0; i < flexbox_layout.getChildCount(); i++) {
+                    if (flexbox_layout.getChildAt(i) instanceof FlexItemView) {
+                        ((FlexItemView) flexbox_layout.getChildAt(i)).setEditable(true);
+                    }
+                }
+                return false;
+            }
+        });
         itemView.setBean(bean);
         return itemView;
     }
 
     private FlexItemView createNewFlexItem(final String name) {
-        final FlexItemView<String> itemView = new FlexItemView(mContext, null);
+        final FlexItemView<String> itemView = new FlexItemView<>(mContext, null);
         itemView.tvName.setText(name);
         itemView.llItem.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) {
-                    listener.onClick(name);
+                if (editable) {
+                    flexbox_layout.removeView(itemView);
+                } else {
+                    if (listener != null) {
+                        listener.onClick(name);
+                    }
                 }
             }
         });
-        itemView.imgDelete.setOnClickListener(new OnClickListener() {
+        itemView.llItem.setOnLongClickListener(new OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                flexbox_layout.removeView(itemView);
+            public boolean onLongClick(View view) {
+                editable = !editable;
+                for (int i = 0; i < flexbox_layout.getChildCount(); i++) {
+                    if (flexbox_layout.getChildAt(i) instanceof FlexItemView) {
+                        ((FlexItemView) flexbox_layout.getChildAt(i)).setEditable(editable);
+                    }
+                }
+                return true;
             }
         });
         return itemView;
@@ -164,5 +186,28 @@ public class FlexLayout<T> extends LinearLayout {
 
     public void setFlexMode(int flexMode) {
         this.flexMode = flexMode;
+    }
+
+
+    public void setMaxLimited(int maxLimited) {
+        this.maxLimited = maxLimited;
+    }
+
+    /**
+     * 获取全部数据
+     *
+     * @return
+     */
+    public List<T> getDataList() {
+        return dataList;
+    }
+
+    /**
+     * 获取全部数据
+     *
+     * @return
+     */
+    public List<String> getNameList() {
+        return nameList;
     }
 }

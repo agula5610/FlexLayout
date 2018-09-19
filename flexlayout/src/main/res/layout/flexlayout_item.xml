@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:text="姓名"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/bodySize" />
@@ -25,7 +26,7 @@
         android:id="@+id/flex_item_delete_img"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:src="@drawable/delete_red" />
+        android:src="@drawable/flex_delete_red"
+        android:visibility="gone" />
 </LinearLayout>
