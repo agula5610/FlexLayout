@@ -148,7 +148,10 @@ public class FlexLayout<T> extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (editable) {
-                    flexbox_layout.removeView(itemView);
+//                    flexbox_layout.removeView(itemView);
+                    flexbox_layout.removeAllViews();
+                    nameList.remove(name);
+                    loadBullets(nameList);
                 } else {
                     if (listener != null) {
                         listener.onClick(name);
