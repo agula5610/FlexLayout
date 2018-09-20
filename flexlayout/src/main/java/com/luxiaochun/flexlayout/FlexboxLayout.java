@@ -70,30 +70,33 @@ public class FlexboxLayout extends ViewGroup {
             if (child == null) {
                 this.addFlexLineIfLastFlexItem(i, childCount, flexLine);
             } else {
-                    FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) child.getLayoutParams();
+                FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) child.getLayoutParams();
 
-                    int childWidth = lp.width;
+                int childWidth = lp.width;
 
-                    int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, this.getPaddingLeft() + this.getPaddingRight() + lp.leftMargin + lp.rightMargin, childWidth);
-                    int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, this.getPaddingTop() + this.getPaddingBottom() + lp.topMargin + lp.bottomMargin, lp.height);
-                    child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-                    childState = View.combineMeasuredStates(childState, ViewCompat.getMeasuredState(child));
-                    largestHeightInRow = Math.max(largestHeightInRow, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
+                int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, this.getPaddingLeft() + this.getPaddingRight() + lp.leftMargin + lp.rightMargin, childWidth);
+                int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, this.getPaddingTop() + this.getPaddingBottom() + lp.topMargin + lp.bottomMargin, lp.height);
+                child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+                childState = View.combineMeasuredStates(childState, ViewCompat.getMeasuredState(child));
+                largestHeightInRow = Math.max(largestHeightInRow, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
 
-                    if (this.isWrapRequired(widthMode, widthSize, flexLine.mainSize, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin)) {
-                        this.mFlexLines.add(flexLine);
-                        flexLine = new FlexboxLayout.FlexLine();
-                        flexLine.itemCount = 1;
-                        flexLine.mainSize = paddingStart + paddingEnd;
-                        largestHeightInRow = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
-                    } else {
-                        ++flexLine.itemCount;
-                    }
-                    flexLine.mainSize += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
-                    flexLine.crossSize = Math.max(flexLine.crossSize, largestHeightInRow);
-
-                    this.addFlexLineIfLastFlexItem(i, childCount, flexLine);
+                if (this.isWrapRequired(widthMode, widthSize, flexLine.mainSize, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin)) {
+//                    if (mFlexLines.size() == limitedLine - 1) {
+//                        break;
+//                    }
+                    this.mFlexLines.add(flexLine);
+                    flexLine = new FlexboxLayout.FlexLine();
+                    flexLine.itemCount = 1;
+                    flexLine.mainSize = paddingStart + paddingEnd;
+                    largestHeightInRow = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
+                } else {
+                    ++flexLine.itemCount;
                 }
+                flexLine.mainSize += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+                flexLine.crossSize = Math.max(flexLine.crossSize, largestHeightInRow);
+
+                this.addFlexLineIfLastFlexItem(i, childCount, flexLine);
+            }
         }
 
         this.determineCrossSize(heightMeasureSpec, this.getPaddingTop() + this.getPaddingBottom());
