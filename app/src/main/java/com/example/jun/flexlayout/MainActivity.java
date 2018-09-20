@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
             "张三", "李四",
             "张三", "李四",
             "张三", "李四",
-            "张三", "李四",
             "张三", "李四"};
 
     @Override
