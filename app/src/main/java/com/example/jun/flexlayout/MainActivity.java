@@ -11,11 +11,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private FlexLayout<String> flexLayout;
-    String[] items = {"张三", "李四",
-            "张三", "李四",
-            "张三", "李四",
-            "张三", "李四",
-            "张三", "李四"};
+    String[] items = {"张三1", "李四1",
+            "张三2", "李四2",
+            "张三3", "李四3",
+            "张三4", "李四4",
+            "张三5", "李四5"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

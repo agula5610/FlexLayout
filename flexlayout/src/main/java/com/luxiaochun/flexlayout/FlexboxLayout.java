@@ -77,14 +77,16 @@ public class FlexboxLayout extends ViewGroup {
                 int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, this.getPaddingLeft() + this.getPaddingRight() + lp.leftMargin + lp.rightMargin, childWidth);
                 int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, this.getPaddingTop() + this.getPaddingBottom() + lp.topMargin + lp.bottomMargin, lp.height);
                 child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+                int oldChildState = childState;
                 childState = View.combineMeasuredStates(childState, ViewCompat.getMeasuredState(child));
                 largestHeightInRow = Math.max(largestHeightInRow, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
 
                 if (this.isWrapRequired(widthMode, widthSize, flexLine.mainSize, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin)) {
-//                    if (mFlexLines.size() == limitedLine - 1) {
+                    this.mFlexLines.add(flexLine);
+//                    if (mFlexLines.size() == limitedLine) {
+//                        childState = oldChildState;
 //                        break;
 //                    }
-                    this.mFlexLines.add(flexLine);
                     flexLine = new FlexboxLayout.FlexLine();
                     flexLine.itemCount = 1;
                     flexLine.mainSize = paddingStart + paddingEnd;
@@ -264,10 +266,13 @@ public class FlexboxLayout extends ViewGroup {
 
     private int getSumOfCrossSize() {
         int sum = 0;
-
+        int crossCount = 0;
         FlexboxLayout.FlexLine flexLine;
         for (Iterator var2 = this.mFlexLines.iterator(); var2.hasNext(); sum += flexLine.crossSize) {
             flexLine = (FlexboxLayout.FlexLine) var2.next();
+            ++crossCount;
+            if (crossCount == limitedLine + 1)
+                break;
         }
 
         return sum;
