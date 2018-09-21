@@ -83,10 +83,6 @@ public class FlexboxLayout extends ViewGroup {
 
                 if (this.isWrapRequired(widthMode, widthSize, flexLine.mainSize, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin)) {
                     this.mFlexLines.add(flexLine);
-//                    if (mFlexLines.size() == limitedLine) {
-//                        childState = oldChildState;
-//                        break;
-//                    }
                     flexLine = new FlexboxLayout.FlexLine();
                     flexLine.itemCount = 1;
                     flexLine.mainSize = paddingStart + paddingEnd;
