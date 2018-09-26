@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.luxiaochun.flexlayout.FlexLayout;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private FlexLayout<String> flexLayout;
+    //    private FlexLayout<String> flexLayout;
+//    private RecyclerView recyclerView;
     String[] items = {"张三1", "李四1",
             "张三2", "李四2",
             "张三3", "李四3",
@@ -21,7 +20,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        flexLayout = findViewById(R.id.flexlayout);
+//        flexLayout = findViewById(R.id.flexlayout);
+//        recyclerView = findViewById(R.id.recyclerView);
+//        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+//        layoutManager.setMaxLine(5);
+//        recyclerView.setLayoutManager(layoutManager);
     }
 
     /**
@@ -31,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void normalClick(View view) {
         List<String> list = Arrays.asList(items);
-        flexLayout.setMaxLimitedLine(2);
-        flexLayout.loadBullets(list);
+//        recyclerView.setAdapter(new MyAdapter(list));
+//        flexLayout.setMaxLimitedLine(2);
+//        flexLayout.loadBullets(list);
     }
 
     /**
